@@ -1,0 +1,2 @@
+# Observatory
+Automated Observatory operations
