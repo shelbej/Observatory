@@ -11,7 +11,7 @@ from io import BufferedWriter, FileIO
 import time
 from spot.Dome import Dome
 from astral import Astral
-path = '/Users/e298770/Developer/SpOT/data/spot/weather/'
+path = 'SpOT/data/spot/weather/'
 
 class WeatherStatus(object):
     def __init__(self, timeInterval, keepRunning):
