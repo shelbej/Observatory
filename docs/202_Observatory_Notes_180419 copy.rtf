@@ -1,0 +1,111 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;}
+{\*\expandedcolortbl;;\csgray\c0;\csgray\c100000;}
+\margl1440\margr1440\vieww23080\viewh20620\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Notes on stuff\
+\
+
+\b\fs36 INDISERVER
+\b0\fs24 \
+Independent indiserver startup - version in /usr/local/bin/\
+Latest version of indi - v 1.7.1\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf2 \cb3 \CocoaLigature0 2018-04-20T00:08:08: startup: indiserver \
+Usage: indiserver [options] driver [driver ...]\
+Purpose: server for local and remote INDI drivers\
+INDI Library: 1.7.1\
+Code $Rev$. Protocol 1.7.\
+Options:\
+ -l d     : log driver messages to <d>/YYYY-MM-DD.islog\
+ -m m     : kill client if gets more than this many MB behind, default 128\
+ -d m     : drop streaming blobs if client gets more than this many MB behind, default 5. 0 to disable\
+ -p p     : alternate IP port, default 7624\
+ -r r     : maximum driver restarts on error, default 10\
+ -f path  : Path to fifo for dynamic startup and shutdown of drivers.\
+ -v       : show key events, no traffic\
+ -vv      : -v + key message content\
+ -vvv     : -vv + complete xml\
+driver    : executable or device@host[:port]
+\f0\fs24 \cf0 \cb1 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf2 \cb3 \CocoaLigature0 indiserver -v indi_apogee_ccd indi_vantage_weather indi_gpsd indi_simulator_telescope indi_optec_wheel indi_robo_focus indi_astrometry\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 various INDI drivers installed at /usr/local/bin\
+\
+Includes: \
+	Apogee camera driver\
+	Davis weather station (Vantage)\
+	GPS dongle thingamabobber (gpsd)\
+	Mount simulator (to be replaced by the Paramount - indi_paramount_telescope when installed)\
+	Optec IFW filter wheel\
+	Robofocus focus motor\
+\
+Not included:\
+	Boltwood Cloud Sensor II\
+	Astrohaven dome\
+\
+\
+
+\b\fs36 Devices, drivers
+\b0\fs24 \
+Ports/connections to devices\
+	Davis Weather station 		USB device 		/dev/tty.SLAB_USBtoUART\
+	Optec IFW filter wheel		USB device		/dev/tty.usbserial-OP330GTQ\
+	GPS usb					USB device		/dev/tty.usbserial\
+	Boltwood Cloud Sensor II		USB device		/dev/tty.usbserial-AD0273ZI\
+	Robofocus focus motor		Serial-Ethernet		192.168.1.20:4661 (planned)\
+	Astrohaven dome			Serial-Ethernet		192.168.1.20:4660 (I think)\
+	Apogee camera			Serial-Ethernet		192.168.1.70\
+	Paramount				Serial-Ethernet?	(planned)\
+\
+\
+
+\b\fs36 Serial-Ethernet server (currently out in dome)\
+
+\b0\fs24 Antaira STE-6104C 4 port serial server. \
+192.168.1.20	Username: admin	Password: <none>\
+\
+
+\b\fs36 Boltwood Cloud Sensor II\
+
+\b0\fs24 Software for Linux: https://sourceforge.net/projects/bwcloudsensorii/\
+Some minor mods (follow up errors in config and make, just disable stuff that barfs), can build in mac environment\
+build in 
+\f1\fs22 /Users/jemason/Downloads/BWCloudSensorII-unix-0.9/weather\
+
+\f0\fs24 Command : test_bwcsII /dev/tty.usbserial-AD0273ZI\
+opens command line shell (well not really, just in same shell, for command input)\
+? 			gives you the command set\
+:open 		opens connection to device \
+:readLoop		starts polling device and reporting lots of crap, occasionally useful data\
+			type \'93q\'94 to stop it\
+P			prints state - doesn\'92t seem to do much unless you start :readLoop or something else first\
+:close		close port\
+cntl-D		Kills process\
+\
+Data log file written to /tmp/YYYY-MM-DD.txt, and also I think to longermlog.txt (a little wierd, last time I checked i had about 5 days of stuff in here, from when I started :readLoop and just let it run).\
+Logfile supposed to go to /opt/mt/var/log. Used to be there, not showing up. Maybe gets overwritten and/or cleaned up when you stop and start the program. \
+\
+
+\b\fs36 Symmetricom XL-GPS
+\b0\fs24 \
+Not really going to use this unfortunately (it\'92s MUCH better than a USB GPS dongle). but doesn\'92t put message in a format compatible with INDI-read gpsd daemon, so\'85.\
+IP address currently set to 192.168.1.60 (192.168.0.200 previous for compatibility with MAST telescope control system)\
+for kicks, username: operator, password: janus. \
+\
+
+\b\fs36 Apogee CCD\
+
+\b0\fs24 Power Cycle w/ iBoot: http://192.168.1.70\
+Build image sequences and job with Ekos Scheduler\
+}
