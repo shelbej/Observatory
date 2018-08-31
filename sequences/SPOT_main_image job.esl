@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SchedulerList version='1.4'>
+<Profile>Default</Profile>
+<Job>
+<Name>Sun</Name>
+<Priority>10</Priority>
+<Coordinates>
+<J2000RA>9.28917</J2000RA>
+<J2000DE>15.7703</J2000DE>
+</Coordinates>
+<Sequence>/Users/e298770/Developer/SPOT/sequences/Dark_x100_Bias_x100.esq</Sequence>
+<StartupCondition>
+<Condition>ASAP</Condition>
+</StartupCondition>
+<Constraints>
+<Constraint value='15'>MinimumAltitude</Constraint>
+</Constraints>
+<CompletionCondition>
+<Condition>Sequence</Condition>
+</CompletionCondition>
+<Steps>
+<Step>Track</Step>
+<Step>Focus</Step>
+<Step>Align</Step>
+<Step>Guide</Step>
+</Steps>
+</Job>
+<Job>
+<Name>Sun</Name>
+<Priority>10</Priority>
+<Coordinates>
+<J2000RA>9.28917</J2000RA>
+<J2000DE>15.7703</J2000DE>
+</Coordinates>
+<Sequence>/Users/e298770/Developer/SPOT/sequences/Main_2s_x18.esq</Sequence>
+<StartupCondition>
+<Condition>ASAP</Condition>
+</StartupCondition>
+<Constraints>
+<Constraint value='15'>MinimumAltitude</Constraint>
+</Constraints>
+<CompletionCondition>
+<Condition value='5'>Repeat</Condition>
+</CompletionCondition>
+<Steps>
+<Step>Track</Step>
+<Step>Focus</Step>
+<Step>Align</Step>
+<Step>Guide</Step>
+</Steps>
+</Job>
+<StartupProcedure>
+</StartupProcedure>
+<ShutdownProcedure>
+</ShutdownProcedure>
+</SchedulerList>
